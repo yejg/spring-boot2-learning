@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -36,11 +37,19 @@ public class Chapter8ApplicationTest {
 
     @Test
     public void get() {
+        stringRedisTemplate.delete("kk");
         // TODO 测试线程安全
+        CountDownLatch cdl = new CountDownLatch(1000);
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        IntStream.range(0, 1000).forEach(i ->
-                executorService.execute(() -> stringRedisTemplate.opsForValue().increment("kk", 1))
+        IntStream.range(0, 1000).parallel().forEach(i ->
+                executorService.execute(() -> {stringRedisTemplate.opsForValue().increment("kk", 1);cdl.countDown();})
         );
+        try {
+            cdl.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("最终kk值为："+stringRedisTemplate.opsForValue().get("kk"));
         stringRedisTemplate.opsForValue().set("k1", "v1");
         final String k1 = stringRedisTemplate.opsForValue().get("k1");
         log.info("[字符缓存结果] - [{}]", k1);

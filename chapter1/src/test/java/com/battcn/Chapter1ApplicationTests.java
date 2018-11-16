@@ -30,6 +30,7 @@ public class Chapter1ApplicationTests {
     @Before
     public void setUp() throws Exception {
         // TODO 因为我们修改了 content-path 所以请求后面要带上
+        System.out.println("port:"+port);
         this.base = new URL("http://localhost:" + port + "/chapter1/demo1");
     }
 

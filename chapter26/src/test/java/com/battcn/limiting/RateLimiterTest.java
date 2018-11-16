@@ -21,7 +21,8 @@ public class RateLimiterTest {
     private static final RateLimiter limiter = RateLimiter.create(2);
 
     private void rateLimiter() {
-        // 默认就是 1
+        // limiter.acquire(num) num 表示消费多少个令牌，默认就是 1
+        // 当桶中有足够的令牌时，则直接返回0，否则阻塞，直到有可用的令牌数才返回，返回的值为阻塞的时间。
         final double acquire = limiter.acquire(1);
         System.out.println("当前时间 - " + LocalDateTime.now() + " - " + Thread.currentThread().getName() + " - 阻塞 - " + acquire + " 通过...");
     }

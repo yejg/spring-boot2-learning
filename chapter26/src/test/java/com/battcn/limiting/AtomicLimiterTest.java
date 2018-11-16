@@ -45,6 +45,7 @@ public class AtomicLimiterTest {
         final ExecutorService service = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 5; i++) {
             service.execute(this::atomicLimiter);
+            // service.execute(()->atomicLimiter());
         }
         TimeUnit.SECONDS.sleep(5);
     }

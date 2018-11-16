@@ -44,6 +44,7 @@ public class LimitInterceptor {
     public Object interceptor(ProceedingJoinPoint pjp) {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
+        // method.getClass().getAnnotation(Limit.class);
         Limit limitAnnotation = method.getAnnotation(Limit.class);
         LimitType limitType = limitAnnotation.limitType();
         String name = limitAnnotation.name();
