@@ -1,17 +1,13 @@
 # spring-boot2
 
-本文是基于 Spring Boot 2.x 版本进行的系列教程，欢迎关注我的公众号 **`battcn`**
+Fork from **`battcn`**
 
-# 公众号
+# 个人新增module
+- execute-on-start 项目启动的时候做一些事情
+- redis-session-share 通过redis实现session共享
+- register-bean-into-springcontainer 向Spring容器注册bean的方法汇总
+- init-order bean加载的方法执行顺序，涉及[InitializingBean, DisposableBean, BeanPostProcessor]接口
 
-![公众号](http://image.battcn.com/assets/images/wxgzh8cm.png)
-
-# 推荐开源项目
-
-- GitHub：[https://github.com/battcn/swagger-spring-boot](https://github.com/battcn/swagger-spring-boot "https://github.com/battcn/swagger-spring-boot")
-- 码云：[https://gitee.com/battcn/spring-boot-starter-swagger/](https://gitee.com/battcn/spring-boot-starter-swagger/ "https://gitee.com/battcn/spring-boot-starter-swagger/")
-- 码云：[https://gitee.com/battcn/battcn3.0](https://gitee.com/battcn/battcn3.0 "https://gitee.com/battcn/battcn3.0")
-- 码云：[https://gitee.com/battcn/battcn-plus](https://gitee.com/battcn/battcn-plus "https://gitee.com/battcn/battcn-plus")
 
 # 目录介绍
 
