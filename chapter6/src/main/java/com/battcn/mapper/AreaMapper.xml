@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.battcn.mapper.AreaMapper">
+    <resultMap id="BaseResultMap" type="com.battcn.entity.Area">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+    </resultMap>
+
+
+    <!-- 一次查出全部 -->
+    <resultMap type="com.battcn.entity.Area" id="areas">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <collection property="subAreas" ofType="com.battcn.entity.Area" columnPrefix="b">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+            <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        </collection>
+    </resultMap>
+
+    <!--因为是一对多的关系，用collection-->
+    <select id="queryCity" parameterType="java.lang.Integer" resultMap="areas">
+        SELECT
+        a.id, a.name, a.area_id,b.id bid,b.name bname,b.area_id barea_id
+        FROM AREA a LEFT JOIN AREA b ON b.parent_id = a.area_id  WHERE a.parent_id = #{id}
+    </select>
+
+
+    <select id="queryAllCity" resultMap="areas">
+        select
+            a.id, a.name, a.area_id,
+            b.id bid, b.name bname, b.area_id barea_id
+        from area a
+        left join area b on b.parent_id = a.area_id
+        where a.parent_id is null
+    </select>
+
+
+    <!-- 同表级联查询 (支持多层嵌套) -->
+    <resultMap type="com.battcn.entity.Area" id="areasV2">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <collection property="subAreas" ofType="com.battcn.entity.Area" column="area_id"
+                    select="queryCityByParentId">
+            <!--<id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+            <result column="parent_id" jdbcType="INTEGER" property="parentId"/>-->
+        </collection>
+    </resultMap>
+
+    <!--因为是一对多的关系，用collection-->
+    <select id="queryCityByParentId" parameterType="java.lang.Integer" resultMap="areasV2">
+    select
+    	a.id, a.name, a.area_id, a.parent_id
+    from area a where a.parent_id = #{area_id}
+  </select>
+
+    <!--因为是一对多的关系，用collection-->
+    <select id="queryAllCityV2" resultMap="areasV2">
+    select
+    	a.id, a.name, a.area_id, a.parent_id
+    from area a where a.parent_id is null
+  </select>
+
+</mapper>

@@ -36,7 +36,7 @@ public class TestInitOrder implements InitializingBean, DisposableBean, BeanPost
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("TestInitOrder...postProcessBeforeInitialization");
+        System.out.println("TestInitOrder...["+beanName+"]postProcessBeforeInitialization");
         return bean;
     }
 
