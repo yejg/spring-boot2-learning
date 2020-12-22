@@ -25,13 +25,66 @@
         <skipTests>true</skipTests>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.battcn</groupId>
+                <artifactId>spring-boot-starter-swagger</artifactId>
+                <version>1.4.4-RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.31</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <modules>
+        <module>chapter1-elasticsearch</module>
         <module>chapter1-simple</module>
         <module>chapter2-properties</module>
+        <module>chapter3-thymeleaf</module>
+        <module>chapter4-jdbc-template</module>
+        <module>chapter5-jpa</module>
+        <module>chapter6-mybatis</module>
+        <module>chapter7-base-mapper</module>
+        <module>chapter8-lettuce-redis</module>
+        <module>chapter9-redis-cache</module>
+        <module>chapter10-swagger</module>
+        <module>chapter11-rabbit-mq</module>
+        <module>chapter12-rabbit-delay-mq</module>
+        <module>chapter13-actuator</module>
+        <module>chapter14-actuator-spring-boot-admin</module>
+        <module>chapter15-timed-tasks</module>
+        <module>chapter16-upload</module>
+        <module>chapter17-global-exception-handler</module>
+        <module>chapter18-validate</module>
+        <module>chapter19-custom-validator</module>
+        <module>chapter20-validate-group</module>
+        <module>chapter21-local-lock</module>
+        <module>chapter22-redis-lock</module>
+        <module>chapter23-liquibase</module>
+        <module>chapter24-websocket</module>
+        <module>chapter25-shiro</module>
+        <module>chapter26-limit</module>
+        <module>chapter27-distribute-limit</module>
+        <module>chapter28</module>
 
-        <module>execute-on-start</module>
-        <module>register-bean-into-springcontainer</module>
-        <module>hasor-dataway</module>
+
+        <module>s1-execute-on-start</module>
+        <module>s2-hasor-dataway</module>
+        <module>s3-init-order</module>
+        <module>s4-jol-simple</module>
+        <module>s5-publish-event</module>
+        <module>s6-redis-session-share</module>
+        <module>s7-register-bean-into-springcontainer</module>
+
     </modules>
 
     <build>
